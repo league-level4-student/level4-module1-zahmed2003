@@ -1,11 +1,13 @@
 package _02_Intro_to_Switch_Statements;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class SwitchStatementDemo {
 	public static void main(String[] args) {
 		// A Switch Statement is simply just another way to write if else statements.
 		// The following two blocks of code are logically the same.
+		
 		
 		{
 			int x = new Random().nextInt(3);
