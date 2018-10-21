@@ -49,18 +49,29 @@ public class ArrayList<T> {
 		T[] tempList = list;
 		
 		list = (T[]) new Object[length];
-		for(int i = 0; i < loc; i++) {list[i] = tempList[i];}
 		
-		for(int i = loc + 1; i < list.length; i++) {list[i] = tempList[i - 1];}
+		if(loc != 0) {
+		for(int i = 0; i < loc; i++) {list[i] = tempList[i];}
+		for(int i = loc + 1; i < list.length; i++) {list[i - 1] = tempList[i];}
+		}
+		if(loc == 0)
+		{
+			for(int i = loc + 1; i <= list.length; i++) {list[i - 1] = tempList[i];}
+		}
 	}
 
 	public boolean contains(T val) {
-
+		
+		for(int i = 0; i < list.length; i++)
+		{
+			if(val.equals(list[i])) {return true;}
+		}
+		
 		return false;
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return length;
 	}
 }

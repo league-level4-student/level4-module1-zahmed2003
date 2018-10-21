@@ -1,6 +1,5 @@
 package _02_Intro_to_Switch_Statements;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class SwitchStatementDemo {
