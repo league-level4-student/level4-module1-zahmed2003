@@ -8,12 +8,12 @@ public class Snake {
 	public static final Color SNAKE_COLOR = Color.BLUE;
 	public static final int BODY_SIZE = 50;
 
-	private SnakeSegment head;
-	private ArrayList<SnakeSegment> snake;
+	public SnakeSegment head;
+	public ArrayList<SnakeSegment> snake;
 
-	private Direction currentDirection;
+	public Direction currentDirection;
 
-	private boolean canMove = true;
+	public boolean canMove = true;
 
 	public Snake(Location location) {
 		snake = new ArrayList<SnakeSegment>();
@@ -25,8 +25,23 @@ public class Snake {
 
 	public void feed() {
 		//1. add a new SnakeSegment object to the snake
-		update();
-		snake.add(new SnakeSegment(snake.get(0).getLocation(), BODY_SIZE));
+		
+		switch(currentDirection)
+		{
+		case UP:
+			snake.add(new SnakeSegment(new Location(snake.get(snake.size() - 1).getLocation().x, snake.get(snake.size() - 1).getLocation().y - 1), BODY_SIZE));
+			break;
+		case DOWN:
+			snake.add(new SnakeSegment(new Location(snake.get(snake.size() - 1).getLocation().x, snake.get(snake.size() - 1).getLocation().y + 1), BODY_SIZE));
+			break;
+		case LEFT:
+			snake.add(new SnakeSegment(new Location(snake.get(snake.size() - 1).getLocation().x - 1, snake.get(snake.size() - 1).getLocation().y), BODY_SIZE));
+			break;
+		case RIGHT:
+			snake.add(new SnakeSegment(new Location(snake.get(snake.size() - 1).getLocation().x + 1, snake.get(snake.size() -1).getLocation().y), BODY_SIZE));
+			break;
+		}
+		
 	}
 
 	public Location getHeadLocation() {
@@ -39,35 +54,34 @@ public class Snake {
 		//   of the snake and calculate its next x and y position.
 		switch(currentDirection)
 		{
-			case UP:
-				for(int i = snake.size() - 2; i >= 0; i--)
-				{
-					snake.get(i).setLocation(snake.get(i + 1).getLocation());
-				}
-				head.setLocation(new Location(head.getLocation().x, head.getLocation().y - 1));
-				break;
-			case DOWN:
-				for(int i = snake.size() - 2; i >= 0; i--)
-				{
-					snake.get(i).setLocation(snake.get(i + 1).getLocation());
-				}
-				head.setLocation(new Location(head.getLocation().x, head.getLocation().y + 1));
-				break;
-			case LEFT:
-				for(int i = snake.size() - 2; i >= 0; i--)
-				{
-					snake.get(i).setLocation(snake.get(i + 1).getLocation());
-				}
-				head.setLocation(new Location(head.getLocation().x - 1, head.getLocation().y));
-				break;
-			case RIGHT:
-				for(int i = snake.size() - 2; i >= 0; i--)
-				{
-					snake.get(i).setLocation(snake.get(i + 1).getLocation());
-				}
-				head.setLocation(new Location(head.getLocation().x + 1, head.getLocation().y));
-				break;
-			
+		case UP:
+			for(int i = snake.size() - 1; i > 0; i--)
+			{
+				snake.get(i).setLocation(snake.get(i - 1).getLocation());
+			}
+			snake.get(0).setLocation(new Location(snake.get(0).getLocation().x, snake.get(0).getLocation().y - 1));
+			break;
+		case DOWN:
+			for(int i = snake.size() - 1; i > 0; i--)
+			{
+				snake.get(i).setLocation(snake.get(i - 1).getLocation());
+			}
+			snake.get(0).setLocation(new Location(snake.get(0).getLocation().x, snake.get(0).getLocation().y + 1));
+			break;
+		case LEFT:
+			for(int i = snake.size() - 1; i > 0; i--)
+			{
+				snake.get(i).setLocation(snake.get(i - 1).getLocation());
+			}
+			snake.get(0).setLocation(new Location(snake.get(0).getLocation().x - 1, snake.get(0).getLocation().y));
+			break;
+		case RIGHT:
+			for(int i = snake.size() - 1; i > 0; i--)
+			{
+				snake.get(i).setLocation(snake.get(i - 1).getLocation());
+			}
+			snake.get(0).setLocation(new Location(snake.get(0).getLocation().x + 1, snake.get(0).getLocation().y));
+			break;
 		}
 		//2. Iterate through the SnakeSegments in reverse order
 		//2a. Update each snake segment to the location of the segment 
@@ -116,7 +130,7 @@ public class Snake {
 	public boolean isHeadCollidingWithBody() {
 		//1. complete the method so it returns true if the head is located
 		//   in the same location as any other body segment
-		for(int i = 0; i < snake.size() - 1; i++)
+		for(int i = 1; i < snake.size() - 1; i++)
 		{
 			if(head.getLocation().equals(snake.get(i).getLocation()))
 			{

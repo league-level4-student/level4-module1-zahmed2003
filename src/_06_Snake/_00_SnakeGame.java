@@ -75,7 +75,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 
 	public void startGame() {
 		//1. Save the instructions for the game in the following string variable.
-		String instructions = "";
+		String instructions = "Use the arrow keys and press space to eat";
 		
 		String[] options = new String[] { "Expert", "Moderate", "Beginner" };
 		int input = JOptionPane.showOptionDialog(null, instructions, "Snake", 0, -1, null, options, 0);
@@ -130,7 +130,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 				snake.setDirection(Direction.RIGHT);
 				break;
 			case KeyEvent.VK_SPACE:
-				snake.feed();
+				if(snake.getHeadLocation().equals(foodLocation)) {snake.feed(); setFoodLocation();}
 				break;
 		}
 		// if an arrow key is pressed, set the snake's 
@@ -184,6 +184,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		//1. update the snake
 		snake.update();
 		//2. if the snake is colliding with its own body 
+		
 		//   or if the snake is out of bounds, call gameOver
 		if(snake.isHeadCollidingWithBody() || snake.isOutOfBounds())
 		{
